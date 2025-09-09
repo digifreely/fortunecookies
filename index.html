@@ -606,6 +606,50 @@ footer a:hover {
     </div>
 </div>
 </div>
+<script>
+async function keepAwake() {
+  if ('wakeLock' in navigator) {
+    try {
+      const lock = await navigator.wakeLock.request('screen');
+      console.log('Wake Lock active');
+
+      // Re-request lock if released (e.g., tab switched)
+      lock.addEventListener('release', () => {
+        console.log('Wake Lock was released, re-requesting…');
+        keepAwake();
+      });
+    } catch (err) {
+      console.warn('Wake Lock failed:', err);
+    }
+  } else {
+    // iOS fallback using hidden looping video
+    const video = document.getElementById('wakeVideo');
+    if (video) {
+      // Try to play
+      video.play().catch(err => console.warn('Video wake lock failed:', err));
+
+      // Auto-restart if it ever pauses
+      video.addEventListener('pause', () => {
+        console.log('Video paused, restarting…');
+        video.play().catch(err => console.warn('Video resume failed:', err));
+      });
+
+      // Extra safeguard: check every 30s
+      setInterval(() => {
+        if (video.paused) {
+          console.log('Video detected paused, forcing restart…');
+          video.play().catch(() => {});
+        }
+      }, 30000);
+    }
+  }
+}
+
+// Must be triggered after user interaction on iOS
+document.addEventListener("click", () => {
+  keepAwake();
+}, { once: true });
+</script>
 <script async src="https://docs.opencv.org/4.x/opencv.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script type="module">
@@ -620,6 +664,7 @@ function _0x2d3885(_0x247df3,_0x4de49e,_0x3f7248,_0x161494,_0x211cfa){return _0x
 </footer>
 </body>
 </html>
+
 
 
 
