@@ -166,8 +166,8 @@
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(255,255,255,0.3);
   transition: transform 0.3s ease;
-  width: 100%;         /* take full width of container */
-  max-width: 100%;     /* prevent overflow */
+  flex: 1 1 300px;       /* grows, shrinks, and starts around 300px */
+  max-width: 100%;       /* never exceed container width */
   box-sizing: border-box;
 }
 
@@ -184,6 +184,15 @@
 .carda:hover {
   transform: translateY(-5px);
 }
+
+/* Mobile: full width cards */
+@media (max-width: 768px) {
+  .card,
+  .carda {
+    flex: 1 1 100%;
+  }
+}
+
 
 
     /* Snackbar */
@@ -602,6 +611,7 @@ function _0x2d3885(_0x247df3,_0x4de49e,_0x3f7248,_0x161494,_0x211cfa){return _0x
 </footer>
 </body>
 </html>
+
 
 
 
