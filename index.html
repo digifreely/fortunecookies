@@ -404,11 +404,17 @@ footer a:hover {
   50%  { text-shadow: 0 0 12px #ff00ff; }
   100% { text-shadow: 0 0 6px #00ffff; }
 }
-
+.wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;   /* prevents sideways scrolling/truncation */
+  box-sizing: border-box;
+  padding: 10px;        /* optional spacing */
+}
 </style>
 </head>
 <body>
-
+<div class="wrapper">
 <div class="container">
     <h1>🔮 Fortune Cookies</h1>
     <div id="snackbar"></div>
@@ -581,6 +587,7 @@ footer a:hover {
         <div class="card" id="cardDob"></div>
     </div>
 </div>
+</div>
 <script async src="https://docs.opencv.org/4.x/opencv.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script type="module">
@@ -595,3 +602,4 @@ function _0x2d3885(_0x247df3,_0x4de49e,_0x3f7248,_0x161494,_0x211cfa){return _0x
 </footer>
 </body>
 </html>
+
